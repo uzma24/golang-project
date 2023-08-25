@@ -8,7 +8,7 @@ import (
 
 type Config struct {
 	DatabaseURI string `mapstructure:"DEV_DATABASE_URI"`
-	RedisURI    string `mapstructure: "REDIS_URI"`
+	RedisURI    string `mapstructure:"REDIS_URI"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

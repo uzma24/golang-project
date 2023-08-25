@@ -7,13 +7,14 @@ import (
 	"uzma/go-backend-clean-architecture/repository"
 	"uzma/go-backend-clean-architecture/usecase"
 
+	redis "github.com/go-redis/redis/v8"
 	echo "github.com/labstack/echo/v4"
 )
 
-func Setup(e *echo.Echo, db *sql.DB) {
+func Setup(e *echo.Echo, db *sql.DB, redisdb *redis.Options) {
 	mr := repository.NewMovieRepository(db)
 	mc := &controller.MovieController{
-		MovieUsecase: usecase.NewMovieUsecase(mr),
+		MovieUsecase: usecase.NewMovieUsecase(mr, redisdb),
 	}
 	v1 := e.Group("/v1")
 	{

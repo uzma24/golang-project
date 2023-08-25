@@ -19,11 +19,17 @@ func main() {
 	//connect to MySQL DB
 	db, err := database.ConnectMySQL(conf.DatabaseURI)
 	if err != nil {
-		log.Fatal("Error connecting to MySQL Database!!")
+		log.Println("Error connecting to MySQL Database!!")
+	}
+
+	//connect to redis
+	redisdb, err := database.ConnectRedis(conf.RedisURI)
+	if err != nil {
+		log.Println("Error connecting to Redis DB!!")
 	}
 
 	e := echo.New()
-	route.Setup(e, db)
+	route.Setup(e, db, redisdb)
 	e.Start(":8080") // Start the server on port 8080
 
 }
